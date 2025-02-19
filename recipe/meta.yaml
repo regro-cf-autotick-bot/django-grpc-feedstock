@@ -1,18 +1,18 @@
 {% set name = "django-grpc" %}
-{% set version = "1.0.21" %}
+{% set version = "1.0.24" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/django-grpc-{{ version }}.tar.gz
-  sha256: 87adcfb7a20e56a5d04f9c50b820ac95e2815fb31370aa7fa5f2385a61899613
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name | replace('-', '_') }}-{{ version }}.tar.gz
+  sha256: 55a190219a3afae27353c388fc6be572da409f9cb35b3b27a33922233a8aa5ed
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   host:
@@ -20,12 +20,13 @@ requirements:
     - pip
     - setuptools
   run:
+    - grpcio-reflection >=1.70.0,<2.0.0
     - python >={{ python_min }}
     - setuptools
-    - django >=4.2
-    - protobuf >=4.21.4
-    - grpcio >=1.47.0,<2.0.0
-    - grpcio-tools >=1.47.0,<2.0.0
+    - django >=4.2,<5.2
+    - protobuf >=5.29.3,<6.0.0
+    - grpcio >=1.70.0,<2.0.0
+    - grpcio-tools >=1.70.0,<2.0.0
 
 test:
   imports:
